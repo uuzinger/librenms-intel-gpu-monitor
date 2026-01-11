@@ -1,0 +1,21 @@
+# Ansible
+*.retry
+*.log
+ansible.cfg
+
+# Temporary inventories
+inventory.tmp
+inventory.local
+*.inv
+.tmp/
+
+# macOS
+.DS_Store
+
+# Editor junk
+.vscode/
+.idea/
+
+# SSH
+*.pem
+

@@ -1,0 +1,2 @@
+Defaults:Debian-snmp !requiretty
+Debian-snmp ALL=(root) NOPASSWD: /usr/bin/intel_gpu_top, /usr/bin/timeout

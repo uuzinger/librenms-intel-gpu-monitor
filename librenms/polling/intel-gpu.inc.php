@@ -24,7 +24,6 @@ if (!empty($intel_gpu_data)) {
             ->addDataset('videnhance_busy', 'GAUGE', 0, 100)
             ->addDataset('freq_actual', 'GAUGE', 0, 3000)
             ->addDataset('freq_requested', 'GAUGE', 0, 3000)
-            ->addDataset('power_gpu', 'GAUGE', 0, 500)
             ->addDataset('power_package', 'GAUGE', 0, 500)
             ->addDataset('rc6', 'GAUGE', 0, 100)
             ->addDataset('interrupts', 'GAUGE', 0);
@@ -36,7 +35,6 @@ if (!empty($intel_gpu_data)) {
             'videnhance_busy' => $gpu_stats['video_enhance_busy'] ?? 0,
             'freq_actual' => $gpu_stats['frequency_actual'] ?? 0,
             'freq_requested' => $gpu_stats['frequency_requested'] ?? 0,
-            'power_gpu' => $gpu_stats['power_gpu'] ?? 0,
             'power_package' => $gpu_stats['power_package'] ?? 0,
             'rc6' => $gpu_stats['rc6'] ?? 0,
             'interrupts' => $gpu_stats['interrupts'] ?? 0,

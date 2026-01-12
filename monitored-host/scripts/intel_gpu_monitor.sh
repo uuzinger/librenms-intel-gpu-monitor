@@ -38,7 +38,6 @@ END { print last_obj }
   "video_enhance_busy": $client_usage.videnhance,
   "frequency_actual": (.frequency.actual // 0),
   "frequency_requested": (.frequency.requested // 0),
-  "power_gpu": (.power.GPU // 0),
   "power_package": (.power.Package // 0),
   "rc6": (.rc6.value // 0),
   "interrupts": (.interrupts.count // 0)

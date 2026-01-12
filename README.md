@@ -1,4 +1,4 @@
-# LibreNMS Intel GPU Monitoring
+# LibreNMS Intel GPU Monitoring v1.1.0
 
 Monitor Intel integrated and Arc GPUs in LibreNMS with detailed metrics including engine utilization, frequency, and power consumption.
 
@@ -6,7 +6,7 @@ Monitor Intel integrated and Arc GPUs in LibreNMS with detailed metrics includin
 
 - **GPU Engine Utilization**: Track Render/3D, Video (transcoding), Video Enhance, and Blitter engines
 - **GPU Frequency**: Monitor actual vs requested GPU frequency
-- **Power Consumption**: Track GPU and package power usage
+- **Package Power Consumption**: Track overall package power (CPU+GPU combined for integrated GPUs)
 - **Hardware Transcoding**: Perfect for monitoring Jellyfin, Plex, or other media servers using Intel Quick Sync
 
 ## Supported Hardware
@@ -182,7 +182,7 @@ In LibreNMS web interface:
 4. You should see three graphs:
    - GPU Engine Utilization
    - GPU Frequency  
-   - GPU Power Consumption
+   - Package Power Consumption
 
 **Note**: Graphs need 2-3 polling cycles (10-15 minutes) to populate with data.
 
@@ -196,17 +196,18 @@ In LibreNMS web interface:
 | blitter_busy | Blitter/copy engine utilization | Percent |
 | freq_actual | Current GPU frequency | MHz |
 | freq_requested | Requested GPU frequency | MHz |
-| power_gpu | GPU power consumption | Watts |
-| power_package | Package power consumption | Watts |
+| power_package | Package power consumption (CPU+GPU+memory) | Watts |
 | rc6 | RC6 residency (power saving state) | Percent |
 | interrupts | GPU interrupt rate | irq/s |
+
+**Note on Power Metrics:** Intel integrated GPUs do not report separate GPU power consumption. The `power_package` metric includes combined power for CPU, GPU, memory controller, and other components. Intel Arc discrete GPUs may report separate GPU power, but this is not currently tracked by this monitoring solution.
 
 ## Monitoring Transcoding
 
 When using hardware transcoding with Jellyfin, Plex, or similar:
 - **Video engine** will show high utilization during transcoding
 - **Video Enhance** may be used for scaling/deinterlacing
-- **Power consumption** will increase during active transcoding
+- **Package power consumption** will increase during active transcoding (note: this includes CPU+GPU power for integrated GPUs)
 
 ## Troubleshooting
 
@@ -305,7 +306,14 @@ Developed for monitoring Intel Arc GPUs in Jellyfin media servers. Based on Libr
 
 ## Version History
 
+- **1.1.0** (2026-01-10) - Bug fixes and improvements
+  - Fixed engine utilization reporting by aggregating client usage data
+  - Removed GPU power metric (always zero on integrated GPUs)
+  - Improved JSON parsing reliability for idle GPU states
+  - Updated documentation to clarify power reporting limitations
+  
 - **1.0.0** (2026-01-10) - Initial release
   - Support for Intel integrated and Arc GPUs
   - Three graph types: engines, frequency, power
   - Compatible with LibreNMS 26.1.0+
+  - Note: Engine utilization incorrectly reported as zero (fixed in 1.1.0)

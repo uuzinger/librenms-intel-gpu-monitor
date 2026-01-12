@@ -15,11 +15,6 @@ $rrd_list = [];
 if (Rrd::checkRrdExists($rrd_filename)) {
     $rrd_list[] = [
         'filename' => $rrd_filename,
-        'descr' => 'GPU Power',
-        'ds' => 'power_gpu',
-    ];
-    $rrd_list[] = [
-        'filename' => $rrd_filename,
         'descr' => 'Package Power',
         'ds' => 'power_package',
     ];
